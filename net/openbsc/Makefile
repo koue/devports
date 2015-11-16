@@ -15,7 +15,8 @@ LIB_DEPENDS=	libdbi.so:${PORTSDIR}/databases/libdbi \
 		libosmocore.so:${PORTSDIR}/devel/libosmocore \
 		libosmoabis.so:${PORTSDIR}/devel/libosmo-abis \
 		libosmonetif.so:${PORTSDIR}/devel/libosmo-netif \
-		libdbi.so:${PORTSDIR}/databases/libdbi
+		libdbi.so:${PORTSDIR}/databases/libdbi \
+		libgcrypt.so:${PORTSDIR}/security/libgcrypt
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/${PORTNAME}
 
