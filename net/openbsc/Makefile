@@ -15,12 +15,12 @@ LIB_DEPENDS=	libdbi.so:${PORTSDIR}/databases/libdbi \
 		libosmocore.so:${PORTSDIR}/devel/libosmocore \
 		libosmoabis.so:${PORTSDIR}/devel/libosmo-abis \
 		libosmonetif.so:${PORTSDIR}/devel/libosmo-netif \
-		libdbi.so:${PORTSDIR}/databases/libdbi \
-		libcrypto.so:${PORTSDIR}/security/libressl
+		libdbi.so:${PORTSDIR}/databases/libdbi
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/${PORTNAME}
 
 USES=		autoreconf compiler:c11 gmake pkgconfig
+USE_OPENSSL=	YES
 GNU_CONFIGURE=yes
 AUTOMAKE_ARGS=	--gnu --add-missing --copy
 CONFIGURE_ARGS+=	CFLAGS="-I${LOCALBASE}/include"
