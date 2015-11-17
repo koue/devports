@@ -20,7 +20,9 @@ LIB_DEPENDS=	libdbi.so:${PORTSDIR}/databases/libdbi \
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/${PORTNAME}
 
 USES=		autoreconf compiler:c11 gmake pkgconfig
-USE_OPENSSL=	YES
+USE_OPENSSL=	yes
+WITH_OPENSSL_PORT=yes
+OPENSSL_PORT=	security/libressl
 GNU_CONFIGURE=yes
 AUTOMAKE_ARGS=	--gnu --add-missing --copy
 CONFIGURE_ARGS+=	CFLAGS="-I${LOCALBASE}/include"
