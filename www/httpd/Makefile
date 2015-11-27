@@ -32,7 +32,7 @@ USERS=		www
 GROUPS=		www
 
 PLIST_FILES=	sbin/obhttpd \
-		man/man5/obhttpd.conf.5.gz \
+		man/man5/httpd.conf.5.gz \
 		man/man7/patterns.7.gz \
 		man/man8/obhttpd.8.gz
 
