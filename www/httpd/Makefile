@@ -19,7 +19,7 @@ GH_PROJECT=	httpd
 GH_TAGNAME=	${PORTVERSION}
 
 USE_OPENSSL=	yes
-USE_RC_SUBR=	httpd
+USE_RC_SUBR=	obhttpd
 
 WITH_OPENSSL_PORT=yes
 OPENSSL_PORT=	security/libressl
