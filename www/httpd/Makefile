@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	httpd
-PORTVERSION=	5.8.20151023
+PORTVERSION=	5.7.20150508
 CATEGORIES=	www
 
 MAINTAINER=	koue@chaosophia.net
@@ -33,7 +33,6 @@ GROUPS=		www
 
 PLIST_FILES=	sbin/obhttpd \
 		man/man5/httpd.conf.5.gz \
-		man/man7/patterns.7.gz \
 		man/man8/obhttpd.8.gz
 
 post-patch:
