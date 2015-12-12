@@ -17,10 +17,10 @@ USES=		python tar:bzip2 pkgconfig
 LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2 \
 		libsqlite3.so:${PORTSDIR}/databases/sqlite3
 		
-
-OPTIONS_DEFINE=	EXAMPLES GSL GTK SUDO TESTS
+OPTIONS_DEFINE=	DEBUG EXAMPLES GSL GTK SUDO TESTS
 OPTIONS_DEFAULT=EXAMPLES TESTS
 
+DEBUG_DESC=	Enable debug build profile
 EXAMPLES_DESC=	Enable examples
 GSL_DESC=	GSL support
 GTK_DESC=	GTK support
@@ -30,6 +30,14 @@ TESTS_DESC=	Enable tests
 BUILDARGS+=	--int64x64=cairo
 
 .include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MDEBUG}
+BUILDARGS+=		-d debug
+PLIST_SUB+=		WITH_DEBUG="-debug"
+.else
+BUILDARGS+=		-d release
+PLIST_SUB+=		WITH_DEBUG=""
+.endif
 
 .if ${PORT_OPTIONS:MEXAMPLES}
 BUILDARGS+=		--enable-examples
@@ -73,11 +81,13 @@ do-build:
 do-install:
 	(cd ${WRKSRC}/ns-${PORTVERSION}/ && ${PYTHON_CMD} waf install)
 
-post-install:
+post-install-DEBUG-on:
 	@cd ${STAGEDIR}${PREFIX}/bin; \
 		for FILE in *debug; do \
 			${STRIP_CMD} $${FILE}; \
 		done
+
+post-install:
 	@cd ${STAGEDIR}${PREFIX}/lib; \
 		for FILE in *.so; do \
 			${STRIP_CMD} $${FILE}; \
