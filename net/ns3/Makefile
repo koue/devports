@@ -5,18 +5,17 @@ PORTVERSION=	3.24.1
 CATEGORIES=	net
 MASTER_SITES=	https://www.nsnam.org/release/
 DISTNAME=	ns-allinone-${PORTVERSION}
-EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	koue@chaosophia.net
 COMMENT=	Network simulator for Internet systems
 
 LICENSE=	GPLv2
 
-USES=		python tar:bzip2 pkgconfig
-
 LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2 \
 		libsqlite3.so:${PORTSDIR}/databases/sqlite3
-		
+
+USES=		pkgconfig python tar:bzip2
+
 OPTIONS_DEFINE=	DEBUG EXAMPLES GSL GTK SUDO TESTS
 OPTIONS_DEFAULT=EXAMPLES TESTS
 
@@ -88,6 +87,10 @@ post-install-DEBUG-on:
 		done
 
 post-install:
+	@cd ${STAGEDIR}${PREFIX}/bin; \
+		for FILE in *; do \
+			${STRIP_CMD} $${FILE}; \
+		done
 	@cd ${STAGEDIR}${PREFIX}/lib; \
 		for FILE in *.so; do \
 			${STRIP_CMD} $${FILE}; \
