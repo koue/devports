@@ -12,6 +12,8 @@ COMMENT=	Implementation of the Gateway GPRS Support Node element
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+LIB_DEPENDS=    libosmocore.so:${PORTSDIR}/devel/libosmocore
+
 GNU_CONFIGURE=	yes
 USES=		autoreconf gmake libtool pkgconfig
 
