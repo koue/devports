@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#
+# Generate sample certificates
+#
+
+if [ "x$2" = "xPOST-INSTALL" ]; then
+
+	echo "========================================================"
+	echo "Generating certificates into %%ETCDIR%%"
+	echo "========================================================"
+	cd %%ETCDIR%% && sh ./make_certs.sh
+
+fi
+
+exit 0
+
