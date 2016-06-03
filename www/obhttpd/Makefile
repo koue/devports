@@ -24,7 +24,7 @@ OPENSSL_PORT=	security/libressl
 
 CFLAGS+=	-Wall
 
-MAKE_ARGS+=	BINDIR=${PREFIX}/sbin MANDIR=${PREFIX}/man
+MAKE_ARGS+=	BINDIR=${PREFIX}/sbin MANDIR=${PREFIX}/man/man
 
 USERS=		www
 GROUPS=		www
@@ -32,7 +32,8 @@ GROUPS=		www
 PLIST_FILES=	sbin/obhttpd \
 		man/man5/obhttpd.conf.5.gz \
 		man/man7/patterns.7.gz \
-		man/man8/obhttpd.8.gz
+		man/man8/obhttpd.8.gz \
+		etc/obhttpd.conf.sample
 
 post-patch:
 	${REINPLACE_CMD} -e 's|httpd$$|obhttpd|g' \
@@ -42,5 +43,7 @@ post-patch:
 	${MV} ${WRKSRC}/httpd.8 ${WRKSRC}/obhttpd.8
 	${REINPLACE_CMD} -e 's|/etc/httpd.conf|${PREFIX}/etc/obhttpd.conf|g' \
 		${WRKSRC}/httpd.h
-
+post-install:
+	${INSTALL_DATA} ${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src/etc/examples/httpd.conf \
+		${STAGEDIR}${PREFIX}/etc/obhttpd.conf.sample
 .include <bsd.port.mk>
