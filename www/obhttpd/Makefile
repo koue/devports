@@ -9,7 +9,6 @@ COMMENT=	OpenBSD http server
 
 LICENSE=	BSD3CLAUSE
 
-#WRKSRC=		${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src/usr.sbin/${GH_PROJECT}
 WRKSRC=		${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src/
 
 USE_GITHUB=	yes
@@ -28,12 +27,6 @@ MAKE_ARGS+=	BINDIR=${PREFIX}/sbin MANDIR=${PREFIX}/man/man
 
 USERS=		www
 GROUPS=		www
-
-#PLIST_FILES=	sbin/obhttpd \
-		man/man5/obhttpd.conf.5.gz \
-		man/man7/patterns.7.gz \
-		man/man8/obhttpd.8.gz \
-		etc/obhttpd.conf.sample
 
 post-patch:
 	${REINPLACE_CMD} -e 's|httpd$$|obhttpd|g' \
