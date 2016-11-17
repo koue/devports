@@ -11,25 +11,50 @@ COMMENT=	The Samhain Intrusion Detection System
 
 LICENSE=	GPLv2
 
-OPTIONS_DEFINE=	KCHECK GPG MYSQL PGSQL XML_LOGS LIBWRAP PRELUDE
-OPTIONS_DEFAULT=	XML_LOGS LIBWRAP
-KCHECK_DESC=	Enable rogue KLD detection
+OPTIONS_DEFINE=	ASM DB_RELOAD DEBUG DNMALLOC ENCRYPT GPG IPV6 KCHECK LIBWRAP \
+		LOGFILE_MONITOR LOGIN_WATCH MAIL MOUNTS_CHECK MYSQL ODBC PGSQL \
+		PORT_CHECK PROCESS_CHECK POSIX_ACL PRELUDE PTRACE SRP STATIC \
+		SUIDCHECK UDP USERFILES XML_LOGS
+OPTIONS_DEFAULT=ASM DNMALLOC ENCRYPT IPV6 LIBWRAP MAIL SRP
+
+ASM_DESC=	Enable asm inline code
+DB_RELOAD_DESC=	Enable database reload on SIGHUP
+DEBUG_DESC=	Enable debug
+DNMALLOC_DESC=	Enable dnmalloc
+ENCRYPT_DESC=	Enable client/server encryption
 GPG_DESC=	Enable GnuPG support
-MYSQL_DESC=	Enable MySQL logging
-PGSQL_DESC=	Enable PostgreSQL logging
-XML_LOGS_DESC=	Enable XML-formatted logs
+IPV6_DESC=	Enable IPv6 support
+KCHECK_DESC=	Enable rogue KLD detection
 LIBWRAP_DESC=	Enable TCP wrapper support
+LOGFILE_MONITOR_DESC=	Enable monitor logfiles
+LOGIN_WATCH_DESC=	Enable watch for login/logout
+MAIL_DESC=	Enable internal SMTP mailer
+MOUNTS_CHECK_DESC=	Enable check mount options on filesystems
+MYSQL_DESC=	Enable MySQL logging
+ODBC_DESC=	Enable ODBC logging
+PGSQL_DESC=	Enable PostgreSQL logging
+PORT_CHECK_DESC=	Enable check ports
+PROCESS_CHECK_DESC=	Enable check processes
+POSIX_ACL_DESC=	Enable check posix acls
 PRELUDE_DESC=	Enable Prelude Framework support
+PTRACE_DESC=	Enable use anti-debugger options
+SRP_DESC=	Enable SRP for authentication
+STATIC_DESC=	Enable static linking
+SUIDCHECK_DESC=	Enable check for suid/sgid files
+UDP_DESC=	Enable UDP server
+USERFILES_DESC=	Enable check for users config files
+XML_LOGS_DESC=	Enable XML-formatted logs
 
 SUB_FILES+=	pkg-install
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--enable-login-watch \
-		--localstatedir=/var \
-		--enable-suidcheck \
-		--with-logserver=true
+CONFIGURE_ARGS=	--localstatedir=/var \
+		--with-logserver=true \
+		--with-altlogserver=true \
+		--with-timeserver=true \
+		--with-alttimeserver=true
 
 USES=			shebangfix
 SHEBANG_FILES=		scripts/samhainadmin.pl.in
@@ -40,21 +65,60 @@ SHEBANG_FILES=		scripts/samhainadmin.pl.in
 CFLAGS+=	-fPIC
 .endif
 
-GPG_CONFIGURE_WITH=	gpg=${PREFIX}/bin/gpg
-GPG_BUILD_DEPENDS=	gpg:${PORTSDIR}/security/gnupg
+ASM_CONFIGURE_ENABLE=		asm
+
+DB_RELOAD_CONFIGURE_ENABLE=	db-reload
+
+DEBUG_CONFIGURE_ENABLE=		debug
+
+DNMALLOC_CONFIGURE_ENABLE=	dnmalloc
+
+ENCRYPT_CONFIGURE_ENABLE=	encrypt
+
+GPG_CONFIGURE_WITH=		gpg=${PREFIX}/bin/gpg
+GPG_BUILD_DEPENDS=		gpg:${PORTSDIR}/security/gnupg
+
+IPV6_CONFIGURE_ENABLE=		ipv6
+
+KCHECK_CONFIGURE_WITH=		kcheck
+
+LIBWRAP_CONFIGURE_WITH=		libwrap
+
+LOGFILE_MONITOR_CONFIGURE_ENABLE=	logfile-monitor
+
+LOGIN_WATCH_CONFIGURE_ENABLE=	login-watch
+
+MAIL_CONFIGURE_ENABLE=		mail
+
+MOUNTS_CHECK_CONFIGURE_ENABLE=	mounts-check
+
+MYSQL_USES=			mysql
+
+ODBC_CONFIGURE_ENABLE=		odbc
+ODBC_LIB_DEPENDS=		libodbc.so:databases/unixODBC
+
+PGSQL_USES=			pgsql
+
+PORT_CHECK_CONFIGURE_ENABLE=	port-check
+
+PROCESS_CHECK_CONFIGURE_ENABLE=	process-check
+
+POSIX_ACL_CONFIGURE_ENABLE=	posix-acl
+
+PRELUDE_LIB_DEPENDS=		prelude:${PORTSDIR}/security/libprelude
+PRELUDE_CONFIGURE_WITH=		prelude
+
+PTRACE_CONFIGURE_ENABLE=	ptrace
+
+SRP_CONFIGURE_ENABLE=		srp
+
+STATIC_CONFIGURE_ENABLE=	static
+
+SUIDCHECK_CONFIGURE_ENABLE=	suidcheck
+
+UDP_CONFIGURE_ENABLE=		udp
 
 XML_LOGS_CONFIGURE_ENABLE=	xml-log
-
-KCHECK_CONFIGURE_WITH=	kcheck
-
-MYSQL_USES=		mysql
-
-PGSQL_USES=		pgsql
-
-PRELUDE_LIB_DEPENDS=	prelude:${PORTSDIR}/security/libprelude
-PRELUDE_CONFIGURE_WITH=	prelude
-
-LIBWRAP_CONFIGURE_WITH=	libwrap
 
 .if defined(WITH_RUNAS_USER)
 CONFIGURE_ARGS+=	--enable-identity=${WITH_RUNAS_USER}
