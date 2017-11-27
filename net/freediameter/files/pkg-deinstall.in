@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#
+# Warn about remaining files
+#
+
+if [ "x$2" = "xPOST-DEINSTALL" ]; then
+
+	echo "==========================================================="
+	echo
+	echo "IMPORTANT!"
+	echo
+	echo "Do not forget to remove certificates and/or directory from:"
+	echo
+	echo  "%%ETCDIR%%"
+	echo
+	echo "==========================================================="
+
+fi
+
+exit 0
+

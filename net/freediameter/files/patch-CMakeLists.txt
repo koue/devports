@@ -1,0 +1,14 @@
+--- CMakeLists.txt.orig	2013-09-14 10:09:01 UTC
++++ CMakeLists.txt
+@@ -33,9 +33,9 @@ SET(LIB_INSTALL_DIR lib CACHE PATH "Defa
+ ENDIF (NOT DEFINED LIB_INSTALL_DIR)
+ 
+ SET(INSTALL_HEADERS_SUFFIX 		include/freeDiameter 	CACHE PATH "Directory where the headers are installed (relative to CMAKE_INSTALL_PREFIX).")
+-SET(INSTALL_DAEMON_SUFFIX 		bin 			CACHE PATH "Directory where the daemon binary is installed (relative to CMAKE_INSTALL_PREFIX).")
++SET(INSTALL_DAEMON_SUFFIX 		sbin 			CACHE PATH "Directory where the daemon binary is installed (relative to CMAKE_INSTALL_PREFIX).")
+ SET(INSTALL_LIBRARY_SUFFIX 		${LIB_INSTALL_DIR} 			CACHE PATH "Directory where the freeDiameter libraries are installed (relative to CMAKE_INSTALL_PREFIX).")
+-SET(INSTALL_EXTENSIONS_SUFFIX 	${LIB_INSTALL_DIR}/freeDiameter	CACHE PATH "Directory where the extensions are installed / searched (relative to CMAKE_INSTALL_PREFIX).")
++SET(INSTALL_EXTENSIONS_SUFFIX 	libexec/freeDiameter/extensions	CACHE PATH "Directory where the extensions are installed / searched (relative to CMAKE_INSTALL_PREFIX).")
+ 
+ # All source code should be POSIX 200112L compatible, but some other extensions might be used, so:
+ ADD_DEFINITIONS(-D_GNU_SOURCE)
