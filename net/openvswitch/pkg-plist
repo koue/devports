@@ -113,12 +113,9 @@ man/man1/ovsdb-tool.1.gz
 man/man5/ovn-nb.5.gz
 man/man5/ovn-sb.5.gz
 man/man5/ovs-vswitchd.conf.db.5.gz
-man/man5/ovsdb.5.gz
 man/man5/vtep.5.gz
 man/man7/ovn-architecture.7.gz
 man/man7/ovs-fields.7.gz
-man/man7/ovsdb.7.gz
-man/man7/ovsdb-server.7.gz
 man/man8/ovs-appctl.8.gz
 man/man8/ovs-bugtool.8.gz
 man/man8/ovn-controller-vtep.8.gz
@@ -136,10 +133,8 @@ man/man8/ovs-ofctl.8.gz
 man/man8/ovs-parse-backtrace.8.gz
 man/man8/ovs-pki.8.gz
 man/man8/ovs-tcpdump.8.gz
-man/man8/ovs-test.8.gz
 man/man8/ovs-testcontroller.8.gz
 man/man8/ovs-vlan-bug-workaround.8.gz
-man/man8/ovs-vlan-test.8.gz
 man/man8/ovs-vsctl.8.gz
 man/man8/ovs-vswitchd.8.gz
 man/man8/vtep-ctl.8.gz
