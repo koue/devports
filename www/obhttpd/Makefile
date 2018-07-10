@@ -21,7 +21,7 @@ USE_RC_SUBR=	obhttpd
 
 CFLAGS+=	-Wall
 
-MAKE_ARGS+=	BINDIR=${PREFIX}/sbin MANDIR=${PREFIX}/man/man
+MAKE_ARGS+=	MANDIR=${PREFIX}/man/man
 
 USERS=		www
 GROUPS=		www
@@ -58,6 +58,8 @@ post-configure:
 		 ${WRKSRC}/usr.sbin/httpd/Makefile
 	${REINPLACE_CMD} 's|-lcrypto|${STAGEDIR_libressl}${LOCALBASE}/lib/libcrypto.a|g' \
 		${WRKSRC}/usr.sbin/httpd/Makefile
+	${REINPLACE_CMD} 's|-lcrypto|${STAGEDIR_libressl}${LOCALBASE}/lib/libcrypto.a|g' \
+		${WRKSRC}/usr.bin/htpasswd/Makefile
 .endif # SSL_DEFAULT
 
 .include <bsd.port.post.mk>
