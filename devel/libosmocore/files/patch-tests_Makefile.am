@@ -1,9 +1,0 @@
---- tests/Makefile.am.orig	2018-07-31 11:33:58 UTC
-+++ tests/Makefile.am
-@@ -280,5 +280,5 @@ $(TESTSUITE): $(srcdir)/testsuite.at $(s
- 	mv $@.tmp $@
- 
- conv/gsm0503_test_vectors.c: $(top_srcdir)/utils/conv_gen.py $(top_srcdir)/utils/conv_codes_gsm.py
--	$(AM_V_GEN)python $(top_srcdir)/utils/conv_gen.py gen_vectors gsm \
-+	$(AM_V_GEN)python2 $(top_srcdir)/utils/conv_gen.py gen_vectors gsm \
- 		--target-path $(builddir)/conv
