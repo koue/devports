@@ -16,7 +16,7 @@ BROKEN_powerpc64=	fails to compile: bfd.c: internal compiler error: in extract_i
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
 
-USES=		compiler:c++14-lang cpe gmake libtool perl5 pkgconfig python:2.7 shebangfix ssl
+USES=		cpe gmake libtool perl5 pkgconfig python:2.7 shebangfix ssl
 SHEBANG_FILES=	ovn/utilities/ovndb-servers.ocf \
 		utilities/bugtool/ovs-bugtool-ovs-ofctl-loop-over-bridges \
 		utilities/ovs-docker \
