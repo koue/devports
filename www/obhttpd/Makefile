@@ -11,9 +11,8 @@ COMMENT=	OpenBSD http server
 
 LICENSE=	BSD3CLAUSE
 
-SSL_VERSION=	3.2.1
-LIBEVENT_VERSION=	6.6.20191030
-LIBIMSG_VERSION=6.5.20190710
+USES=		uidfix
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	koue
 GH_PROJECT=	httpd \
@@ -23,9 +22,10 @@ GH_TAGNAME=	${LIBIMSG_VERSION}:libimsg \
 		${LIBEVENT_VERSION}:libevent
 
 USE_RC_SUBR=	obhttpd
-USES=		uidfix
 
-CFLAGS+=	-Wall \
+MAKE_ARGS+=	MANDIR=${PREFIX}/man/man
+
+CFLAGS+=	-Wall -fcommon \
 		-I${WRKDIR}/libressl-${SSL_VERSION}/include \
 		-I${WRKSRC_libimsg}/src/lib/libutil \
 		-I${WRKSRC_libevent}/src/lib/libevent
@@ -33,10 +33,12 @@ CFLAGS+=	-Wall \
 LDFLAGS+=	-L${WRKSRC_libimsg}/src/lib/libutil \
 		-L${WRKSRC_libevent}/src/lib/libevent
 
-MAKE_ARGS+=	MANDIR=${PREFIX}/man/man
-
 USERS=		www
 GROUPS=		www
+
+SSL_VERSION=	3.2.1
+LIBEVENT_VERSION=	6.6.20191030
+LIBIMSG_VERSION=6.5.20190710
 
 post-patch:
 	${REINPLACE_CMD} -e 's|libimsg/src||g' \
@@ -54,6 +56,7 @@ post-patch:
 
 pre-configure:
 	@(cd ${WRKDIR} && ${EXTRACT_CMD} ${EXTRACT_BEFORE_ARGS} ${DISTDIR}/libressl-${SSL_VERSION}.tar.gz ${EXTRACT_AFTER_ARGS})
+	@(${PATCH} -d ${WRKDIR}/libressl-${SSL_VERSION} < ${PATCHDIR}/extra-patch-libressl_tls_tls.c)
 	@(cd ${WRKDIR}/libressl-${SSL_VERSION} && ${SETENV} ./configure && ${SETENV} ${MAKE_ENV} ${MAKE})
 	@(cd ${WRKSRC_libimsg} && ${SETENV} ${MAKE_ENV} ${MAKE})
 	@(cd ${WRKSRC_libevent} && ${SETENV} ${MAKE_ENV} ${MAKE})
